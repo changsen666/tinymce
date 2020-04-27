@@ -61,10 +61,11 @@ export default {
     return {
       myValue: this.value,
       init: {
+        // inline: true,
         language_url: "/tinymce/langs/zh_CN.js",
         language: "zh_CN",
-        skin_url: "/tinymce/skins/ui/oxide",
-        // skin_url: 'tinymce/skins/ui/oxide-dark',//暗色系
+        // skin_url: "/tinymce/skins/ui/oxide",
+        skin_url: "tinymce/skins/ui/oxide-dark", //暗色系
         height: 300,
         plugins: this.plugins,
         toolbar: this.toolbar,
@@ -72,6 +73,12 @@ export default {
         //顶部工具栏 false 隐藏
         // menubar: "file edit insert view format table tools help",
         menubar: false,
+        // 可隐藏底栏的元素路径
+        elementpath: false,
+        // 隐藏编辑器底部的状态栏
+        statusbar: false,
+        // 允许粘贴图像
+        paste_data_images: true,
         // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
         // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
         images_upload_handler: (blobInfo, success, failure) => {
@@ -141,6 +148,8 @@ export default {
         },
         //head设置
         // block_formats: "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3",
+        fontsize_formats:
+          "10px 12px 14px 16px 20px 24px 30px 32px 35px 40px 50px",
         //允许撤销级别 10
         custom_undo_redo_levels: 10
       }
