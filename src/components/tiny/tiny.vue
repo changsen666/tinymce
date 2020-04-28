@@ -35,7 +35,8 @@ import "tinymce/plugins/autolink"; // 链接
 import "tinymce/plugins/charmap"; // 特殊符号
 // import "tinymce/plugins/bdmap"; // 地图
 import "tinymce/plugins/visualchars"; // autoresize
-import "tinymce/plugins/autoresize"; // autoresize
+// 设置autoresize后 高度max_height, max_width, min_height, min_width 都不可用
+// import "tinymce/plugins/autoresize"; //
 //测试
 import "../../../public/tinymce/lineheight"; // 行高
 import "tinymce/plugins/legacyoutput"; // visualchars
@@ -56,7 +57,7 @@ export default {
     plugins: {
       type: [String, Array],
       default:
-        "lists advlist image table wordcount fullscreen preview hr visualblocks print link autolink autoresize pagebreak legacyoutput lineheight charmap visualchars"
+        "lists advlist image table wordcount fullscreen preview hr visualblocks print link autolink pagebreak legacyoutput lineheight charmap visualchars"
     },
     toolbar: {
       type: [String, Array],
@@ -70,12 +71,14 @@ export default {
       init: {
         // inline: true,
         //超出工具按钮换行显示
-        toolbar_mode: "sliding",
+        // toolbar_mode: "sliding",
         language_url: "tinymce/langs/zh_CN.js",
         language: "zh_CN",
         // skin_url: "/tinymce/skins/ui/oxide",
         skin_url: "tinymce/skins/ui/oxide-dark", //暗色系
-        height: 500,
+        height: 400,
+        // fontsize_formats:
+        //   "8px 9px 10px 12px 14px 16px 18px 20px 24px 28px 32px 36px 40px 45px 50px 55px 60px 70px 80px",
         plugins: this.plugins,
         toolbar: [
           {
@@ -136,8 +139,8 @@ export default {
         // style_formats: [],
         branding: false,
         //顶部工具栏 false 隐藏
-        menubar: "file edit insert view format table tools help",
-        // menubar: false,
+        // menubar: "file edit insert view format table tools help",
+        menubar: false,
         // 可隐藏底栏的元素路径
         elementpath: false,
         // 隐藏编辑器底部的状态栏
@@ -214,8 +217,7 @@ export default {
         },
         //head设置
         // block_formats: "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3",
-        fontsize_formats:
-          "8 9 10 12 14 16 18 20 24 28 32 36 40 45 50 55 60 70 80",
+
         //允许撤销级别 10
         custom_undo_redo_levels: 10
       }
@@ -256,5 +258,8 @@ export default {
 }
 .tox .tox-dropzone p {
   color: red !important;
+}
+.tox .tox-tinymce {
+  min-width: 400px;
 }
 </style>
