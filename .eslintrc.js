@@ -1,5 +1,8 @@
 module.exports = {
   root: true,
+  "globals":{
+    "tinymce": true
+  },
   env: {
     node: true
   },

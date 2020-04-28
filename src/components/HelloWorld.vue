@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home2">
     <tinymce ref="editor" v-model="msg" :disabled="disabled" />
     <button @click="clear">测试输出内容</button>
     <button @click="disabled = !disabled">禁用/启用</button>
@@ -8,7 +8,7 @@
 <script>
 import tinymce from "@/components/tiny/tiny.vue";
 export default {
-  name: "home",
+  name: "home2",
   components: {
     tinymce
   },

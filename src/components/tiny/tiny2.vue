@@ -20,7 +20,6 @@ import "tinymce/plugins/image"; // 插入上传图片插件
 // import "tinymce/plugins/media"; // 插入视频插件
 import "tinymce/plugins/table"; // 插入表格插件
 import "tinymce/plugins/lists"; // 列表插件
-import "tinymce/plugins/advlist"; // 有序列表
 import "tinymce/plugins/wordcount"; // 字数统计插件
 import "tinymce/plugins/fullscreen"; // 全屏插件
 import "tinymce/plugins/preview"; // 预览
@@ -29,16 +28,13 @@ import "tinymce/plugins/print"; // 打印
 import "tinymce/plugins/link"; // 链接
 // import "tinymce/plugins/paste"; // 粘贴
 import "tinymce/plugins/hr"; // 换行符
-import "tinymce/plugins/imagetools"; //
+// import "tinymce/plugins/imagetools"; //
 import "tinymce/plugins/pagebreak"; // 分页符
 import "tinymce/plugins/autolink"; // 链接
-import "tinymce/plugins/charmap"; // 特殊符号
-// import "tinymce/plugins/bdmap"; // 地图
-import "tinymce/plugins/visualchars"; // autoresize
-import "tinymce/plugins/autoresize"; // autoresize
 //测试
-import "../../../public/tinymce/lineheight"; // 行高
-import "tinymce/plugins/legacyoutput"; // visualchars
+import "tinymce/plugins/advlist"; // 分页符
+import "tinymce/plugins/anchor"; // 链接import
+import "tinymce/plugins/save"; // 链接
 export default {
   components: {
     Editor
@@ -56,12 +52,12 @@ export default {
     plugins: {
       type: [String, Array],
       default:
-        "lists advlist image table wordcount fullscreen preview hr visualblocks print link autolink autoresize pagebreak legacyoutput lineheight charmap visualchars"
+        "lists image table wordcount fullscreen preview hr visualblocks print link autolink pagebreak"
     },
     toolbar: {
       type: [String, Array],
       default:
-        "undo redo | formatselect fontsizeselect fontselect | bold italic underline  forecolor backcolor hr pagebreak lineheight | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | lists  image  link autolink table | removeformat | fullscreen preview visualblocks print | anchor"
+        "undo redo | styleselect formatselect fontsizeselect fontselect | formatting alignment forecolor backcolor hr pagebreak | bullist numlist outdent indent | lists imagetools image  link autolink table | removeformat | fullscreen preview visualblocks print | anchor"
     }
   },
   data() {
@@ -70,69 +66,73 @@ export default {
       init: {
         // inline: true,
         //超出工具按钮换行显示
-        toolbar_mode: "sliding",
+        // toolbar_mode: "sliding",
         language_url: "tinymce/langs/zh_CN.js",
         language: "zh_CN",
         // skin_url: "/tinymce/skins/ui/oxide",
         skin_url: "tinymce/skins/ui/oxide-dark", //暗色系
-        height: 500,
+        height: 300,
         plugins: this.plugins,
-        toolbar: [
-          {
-            name: "history",
-            items: ["undo", "redo"]
+        toolbar: this.toolbar,
+        toolbar_groups: {
+          formatting: {
+            text: "文字格式",
+            tooltip: "Formatting",
+            items: "bold italic underline strikethrough | superscript subscript"
           },
-          {
-            name: "styles",
-            items: ["formatselect", "fontsizeselect", "fontselect"]
-          },
-          {
-            name: "colors",
-            items: [
-              "forecolor",
-              "backcolor",
-              "bold",
-              "italic",
-              "underline",
-              "strikethrough",
-              "superscript",
-              "subscript",
-              "removeformat"
-            ]
-          },
-          {
-            name: "alignment",
-            items: [
-              "alignleft",
-              "aligncenter",
-              "alignright",
-              "alignjustify",
-              "outdent",
-              "indent",
-              "lineheight"
-            ]
-          },
-          {
-            name: "indentation",
-            items: ["bullist", "numlist", "Blockquote", "visualblocks"]
-          },
-          {
-            name: "link",
-            items: ["lists", "imagetools", "image", "link", "autolink", "table"]
-          },
-          {
-            name: "link2",
-            items: [
-              "fullscreen",
-              "preview",
-              "print",
-              "anchor",
-              "charmap",
-              "visualchars"
-            ]
+          alignment: {
+            icon: "align-left",
+            tooltip: "alignment",
+            items: "alignleft aligncenter alignright alignjustify"
           }
-        ],
-        // toolbar: this.toolbar,
+        },
+        // toolbar: [
+        //   {
+        //     name: "history",
+        //     items: ["undo", "redo"]
+        //   },
+        //   {
+        //     name: "styles",
+        //     items: ["formatselect", "fontsizeselect", "fontselect"]
+        //   },
+        //   {
+        //     name: "formatting",
+        //     items: [
+        //       "bold",
+        //       "italic",
+        //       "underline",
+        //       "strikethrough",
+        //       "forecolor",
+        //       "backcolor",
+        //       "superscript",
+        //       "subscript",
+        //       "removeformat"
+        //     ]
+        //   },
+        //   {
+        //     name: "alignment",
+        //     items: ["alignleft", "aligncenter", "alignright", "alignjustify"]
+        //   },
+        //   {
+        //     name: "indentation",
+        //     items: [
+        //       "outdent",
+        //       "indent",
+        //       "bullist",
+        //       "numlist",
+        //       "Blockquote",
+        //       "visualblocks"
+        //     ]
+        //   },
+        //   {
+        //     name: "link",
+        //     items: ["lists", "imagetools", "image", "link", "autolink", "table"]
+        //   },
+        //   {
+        //     name: "link2",
+        //     items: ["fullscreen", "preview", "print", "anchor"]
+        //   }
+        // ],
         // style_formats: [],
         branding: false,
         //顶部工具栏 false 隐藏
@@ -215,7 +215,7 @@ export default {
         //head设置
         // block_formats: "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3",
         fontsize_formats:
-          "8 9 10 12 14 16 18 20 24 28 32 36 40 45 50 55 60 70 80",
+          "10px 12px 14px 16px 20px 24px 30px 32px 35px 40px 50px",
         //允许撤销级别 10
         custom_undo_redo_levels: 10
       }
@@ -253,8 +253,5 @@ export default {
 }
 .tox .tox-dialog__body-content iframe {
   background: #fff;
-}
-.tox .tox-dropzone p {
-  color: red !important;
 }
 </style>
